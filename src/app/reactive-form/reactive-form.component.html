@@ -1,0 +1,63 @@
+<section>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="form-group">
+      <mat-form-field appearance="standard">
+        <mat-label>Name</mat-label>
+        <input
+          matInput
+          maxlength="15"
+          inputmode="tel"
+          placeholder="Type name"
+          formControlName="name"
+          #nameInput
+        />
+        <mat-hint>Mini character 10: {{ nameInput.value.length }}/10</mat-hint>
+        <mat-error>Name is required</mat-error>
+        <mat-error *ngIf="form.controls['name'].errors?.['minlength']">
+          Please enter more than 10 character
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-group">
+      <mat-form-field appearance="legacy">
+        <mat-label>Email Address:</mat-label>
+        <input
+          matInput
+          type="email"
+          formControlName="email"
+          placeholder="Your email"
+        />
+        <mat-icon matSuffix>mail_outline</mat-icon>
+        <mat-hint>Input the fully qualified email address</mat-hint>
+        <mat-error *ngIf="form.controls['email'].errors?.['required']">
+          Email is required
+        </mat-error>
+        <mat-error *ngIf="form.controls['email'].errors?.['pattern']">
+          Please enter valid email
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="example-section">
+      <mat-radio-group
+        formControlName="country"
+        aria-labelledby="example-radio-group-label"
+        class="example-radio-group"
+      >
+        <mat-radio-button
+          class="example-radio-button"
+          *ngFor="let country of countries"
+          [value]="country.name"
+          (change)="changeCountry($event)"
+        >
+          {{ country.name }}
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <button mat-raised-button color="accent" [disabled]="form.invalid">
+      Submit
+    </button>
+  </form>
+  <p>{{ form.value | json }}</p>
+</section>

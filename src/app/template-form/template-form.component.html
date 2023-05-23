@@ -1,0 +1,25 @@
+<section>
+  <form #f="ngForm" (ngSubmit)="submit()">
+    <label id="example-radio-group-label">
+      Pick your favorite country: Angular radio button ngmodel
+    </label>
+    <mat-radio-group
+      layout="row"
+      aria-labelledby="example-radio-group-label"
+      class="example-radio-group"
+      [(ngModel)]="selectedCountry"
+      name="selectedCountry"
+    >
+      <mat-radio-button
+        layout="row"
+        class="example-radio-button"
+        labelPosition="after"
+        *ngFor="let country of countries"
+        [value]="country.name"
+      >
+        {{ country.name }}
+      </mat-radio-button>
+    </mat-radio-group>
+  </form>
+  <div>Selected Country: {{ f.value | json }}</div>
+</section>
